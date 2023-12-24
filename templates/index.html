@@ -86,8 +86,19 @@ database. The application is built using
 </form>
 </p>
 
-<h3>Patrocinadores</h3>
+<h3>Parcerias</h3>
+<p>
+  <a href="/parcerias">Ver todas</a>
+</p>
+<p>Pesquisar por sigla da equipa:
+  <form name="gid" action="javascript:window.open('/parcerias/'+document.forms['gid'].elements['id'].value,'_self')">
+     Sigla da equipa(em maiúsculas):<input value="T1" name="id" type="text"/><input type="submit" value="get"/>
+  </form>
+  </p>
+
+<h4>Patrocinadores</h4>
 <p>
    <a href="/patrocinadores">Ver todos</a>
 </p>
+
 {% endblock %}

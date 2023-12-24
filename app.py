@@ -35,10 +35,11 @@ def list_equipas():
       ''').fetchall()
     return render_template('equipas-list.html', equipas=equipas)
 
-#eu vi ate aqui
+@APP.route('/equipas/<expr>/')
+def get_equipa(expr):
 
-@APP.route('/movies/<int:id>/')
-def get_movie(id):
+  #eu vi ate aqui
+  
   movie = db.execute(
       '''
       SELECT MovieId, Title, Year, Duration 
