@@ -3,7 +3,6 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 from flask import abort, render_template, Flask
 import logging
 import db
-
 APP = Flask(__name__)
 
 # Start page
@@ -12,36 +11,31 @@ def index():
     stats = {}
     stats = db.execute('''
     SELECT * FROM
-      (SELECT COUNT(*) n_movies FROM MOVIE)
+      (SELECT COUNT(*) n_jogadores FROM jogadores)
     JOIN
-      (SELECT COUNT(*) n_actors FROM ACTOR)
+      (SELECT COUNT(*) n_equipas FROM equipas)
     JOIN
-      (SELECT COUNT(*) n_genres FROM MOVIE_GENRE)
+      (SELECT COUNT(*) n_regioes FROM regioes)
     JOIN 
-      (SELECT COUNT(*) n_streams FROM STREAM)
+      (SELECT COUNT(*) n_patrocinadores FROM patrocinadores)
     JOIN 
-      (SELECT COUNT(*) n_customers FROM CUSTOMER)
-    JOIN 
-      (SELECT COUNT(*) n_countries FROM COUNTRY)
-    JOIN 
-      (SELECT COUNT(*) n_regions FROM REGION)
-    JOIN 
-      (SELECT COUNT(*) n_staff FROM STAFF)
+      (SELECT COUNT(*) n_parcerias FROM parcerias)
     ''').fetchone()
     logging.info(stats)
     return render_template('index.html',stats=stats)
 
-# Movies
-@APP.route('/movies/')
-def list_movies():
-    movies = db.execute(
+# Equipas
+@APP.route('/equipas/')
+def list_equipas():
+    equipas = db.execute(
       '''
-      SELECT MovieId, Title, Year, Duration 
-      FROM MOVIE
-      ORDER BY Title
+      SELECT *
+      FROM equipas
+      ORDER BY nome
       ''').fetchall()
-    return render_template('movie-list.html', movies=movies)
+    return render_template('equipas-list.html', equipas=equipas)
 
+#eu vi ate aqui
 
 @APP.route('/movies/<int:id>/')
 def get_movie(id):
