@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>MoviewStream database</h1>
+<h1>worlds2023 database</h1>
 
 <h2>About</h2>
-<p>This web application illustrates the use of the MovieStream
+<p>This web application illustrates the use of the worlds2023
 database. The application is built using 
 <a href="https://docs.python.org/3/library/sqlite3.html">sqlite3</a>,
 <a href="https://flask.palletsprojects.com">Flask</a>, and
-<a href="https://jinja.palletsprojects.com">Jinja</a>.
+<a href="https://jinja.palletsprojects.com">Jinja</a> provided by the professors.
 </p>
 
 <h2>Some database statistics</h2>
@@ -17,85 +17,77 @@ database. The application is built using
   <th>Count</th>
 </tr>
 <tr>
-  <td>Movies</td>
-  <td>{{ stats.n_movies }}</td>
+  <td>Equipas</td>
+  <td>{{ stats.n_equipas }}</td>
 </tr>
 <tr>
-  <td>Actors in movies</td>
-  <td>{{ stats.n_actors }}</td>
+  <td>Jogadores no campeonato</td>
+  <td>{{ stats.n_jogadores }}</td>
 </tr>
 <tr>
-  <td>Movie genres</td>
-  <td>{{ stats.n_genres }}</td>
+  <td>Regiões do campeonato</td>
+  <td>{{ stats.n_regioes }}</td>
 </tr>
 <tr>
-  <td>Streams</td>
-  <td>{{ stats.n_streams }}</td>
+  <td>Patrocinadores</td>
+  <td>{{ stats.n_patrocinadores }}</td>
 </tr>
 <tr>
-  <td>Customers</td>
-  <td>{{ stats.n_customers }}</td>
-</tr>
-<tr>
-  <td>Countries</td>
-  <td>{{ stats.n_countries }}</td>
-</tr>
-<tr>
-  <td>Regions</td>
-  <td>{{ stats.n_regions }}</td>
+  <td>Parcerias</td>
+  <td>{{ stats.n_parcerias }}</td>
 </tr>
 </table>
 
 
 <h2>Sample functionality</h2>
 
-<h3>Movies</h3>
+<h3>Equipas</h3>
 <p>
-   <a href="/movies">List all</a>
+   <a href="/equipas">Ver todos</a>
 </p>
-<p>Get movie info:
-<form name="mid" action="javascript:window.open('/movies/'+document.forms['mid'].elements['id'].value,'_self')">
-   Movie Id:<input value="123" name="id" type="number" min="1"/><input type="submit" value="get"/>
+<p>Informação sobre a equipa:
+<form name="mid" action="javascript:window.open('/equipas/'+document.forms['mid'].elements['id'].value,'_self')">
+   Sigla da equipa(em maiúsculas):<input value="G2" name="id" type="text"/><input type="submit" value="get"/>
 </form>
 </p>
   
-<p>Search by title:
-<form name="msearch" action="javascript:window.open('/movies/search/'+document.forms['msearch'].elements['expr'].value,'_self')">
-  <input name="expr" id="expr" value="Spider" required/>
+<p>Pesquisa por nome:
+<form name="msearch" action="javascript:window.open('/equipas/search/'+document.forms['msearch'].elements['expr'].value,'_self')">
+  <input name="expr" id="expr" value="G2 Esports" required/>
   <input type="submit" value="search"/>
 </form>
 </p>
 
-<h3>Actors</h3>
+<h3>Jogadores</h3>
 <p>
-   <a href="/actors">List all</a>
+   <a href="/jogadores">Ver todos</a>
 </p>
-<p>Get actor info:
-<form name="aid" action="javascript:window.open('/actors/'+document.forms['aid'].elements['id'].value,'_self')">
-   Actor Id:<input value="123" name="id" type="number" min="1"/><input type="submit" value="get"/>
+<p>Informação sobre o jogador:
+<form name="aid" action="javascript:window.open('/jogadores/'+document.forms['aid'].elements['id'].value,'_self')">
+   Nickname do jogador (sensível a maiúsculas):<input value="Caps" name="id" type="text"/><input type="submit" value="get"/>
 </form>
 </p>
   
-<p>Search by name (prone to <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>!)
+<!-- <p>Search by name (prone to <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>!)
   <form name="asearch" action="javascript:window.open('/actors/search/'+document.forms['asearch'].elements['expr'].value,'_self')">
-    <input name="expr" id="expr" value="Tom" required/>
+    <input name="expr" id="expr" value="Caps" required/>
     <input type="submit" value="search"/>
   </form>
-</p>
+</p>-->
 
-<h3>Genres</h3>
+<h3>Regiões</h3>
 <p>
-   <a href="/genres">List all</a>
+   <a href="/regioes">Ver todas</a>
 </p>
 
-<p>Get genre info:
-<form name="gid" action="javascript:window.open('/genres/'+document.forms['gid'].elements['id'].value,'_self')">
-   Genre Id:<input value="1" name="id" type="number" min="1"/><input type="submit" value="get"/>
+<p>Informação sobre a região:
+<form name="gid" action="javascript:window.open('/regioes/'+document.forms['gid'].elements['id'].value,'_self')">
+   Sigla da região(em maiúsculas):<input value="KR" name="id" type="text"/><input type="submit" value="get"/>
 </form>
 </p>
 
-<h3>Staff</h3>
+<h3>Patrocinadores</h3>
 <p>
-   <a href="/staff">List all</a>
+   <a href="/patrocinadores">Ver todos</a>
 </p>
 {% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Equipas</h1>
+<table>
+  <tr>
+    <th>
+      <b>Sigla</b>
+    </th>
+    <th>
+      <b>Regiao</b>
+    </th>
+    <th>
+      <b>Nome</b>
+    </th>
+    <th>
+      <b>NJogos</b>
+    </th>
+    <th>
+      <b>NJogosGanhos</b>
+    </th>
+    <th>
+      <b>RácioDeVitorias</b>
+    </th>
+    <th>
+      <b>KD</b>
+    </th>
+    <th>
+      <b>AssassinatosPorJogo</b>
+    </th>
+    <th>
+      <b>MortesPorJogo</b>
+    </th>
+  </tr>
+
+  {% for equipa in equipas %}
+  <tr>
+    <td>
+      <a href="/equipas/{{ equipa.Sigla }}">{{ equipa.Sigla }}</a>
+    </td>
+    <td>
+      {{ equipa.Regiao }}
+    </td>
+    <td>
+      {{ equipa.Nome }}
+    </td>
+    <td>
+      {{ equipa.NJogos }}
+    </td>
+    <td>
+      {{ equipa.NJogosGanhos }}
+    </td>
+    <td>
+      {{ equipa.RacioDeVitorias }}
+    </td>
+    <td>
+      {{ equipa.KD }}
+    </td>
+    <td>
+      {{ equipa.AssassinatosPorJogo }}
+    </td>
+    <td>
+      {{ equipa.MortesPorJogo }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
