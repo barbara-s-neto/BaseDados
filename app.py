@@ -37,23 +37,22 @@ def list_equipas():
 
 @APP.route('/equipas/<expr>/')
 def get_equipa(expr):
-  expressao = expr
-  expr = '%' + expr + '%'
+  
   
   equipa = db.execute(
       '''
-      SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, assassinatosporjogo, mortesporjogo
+      SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, AssassinatosPorJogo, MortesPorJogo
       FROM equipas 
       WHERE sigla = ?
       ''', [expr]).fetchone()
 
   if equipa is None:
-     abort(404, 'Não existe equipa com sigla {}.'.format(expressao))
+     abort(404, 'Não existe equipa com sigla {}.'.format(expr))
 
   regiao = db.execute(
       '''
       SELECT nome 
-      FROM regioes r JOIN equipas e on r.regiao=r.sigla
+      FROM regioes r JOIN equipas e on e.regiao=r.sigla
       WHERE e.sigla = ? 
       ''', [expr]).fetchone()
 
@@ -67,7 +66,7 @@ def get_equipa(expr):
 
   parcerias = db.execute(
       ''' 
-      SELECT Nome
+      SELECT nome
       FROM parcerias p join equipas e on e.sigla=p.sigla
       WHERE p.sigla = ?
       ORDER BY nome Desc
@@ -75,20 +74,21 @@ def get_equipa(expr):
   return render_template('equipa.html', 
            equipa=equipa, regiao=regiao, jogadores=jogadores, parcerias=parcerias)
 
-#visto ate aqui
-
 @APP.route('/movies/search/<expr>/')
-def search_movie(expr):
+def search_equipa(expr):
   search = { 'expr': expr }
   expr = '%' + expr + '%'
-  movies = db.execute(
+  equipas = db.execute(
       ''' 
-      SELECT MovieId, Title
-      FROM MOVIE 
+      SELECT sigla, nome
+      FROM equipas
       WHERE Title LIKE ?
       ''', [expr]).fetchall()
-  return render_template('movie-search.html',
-           search=search,movies=movies)
+  return render_template('equipa-search.html',
+           search=search,equipas=equipas)
+
+#visto ate aqui
+
 
 # Actors
 @APP.route('/actors/')

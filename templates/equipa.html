@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ equipa.Nome }}</h1>
+<h1>{{ equipa.nome }}</h1>
 <p>
-  <b>Sigla da equipa: </b>{{ equipa.Sigla }}
+  <b>Sigla da equipa: </b>{{ equipa.sigla }}
 </p>
 <p>
-  <b>Nome: </b>{{ equipa.Nome }}
+  <b>Nome: </b>{{ equipa.nome }}
 </p>
 <p>
-  <b>Número de jogos: </b>{{ equipa.NJogos }}
+  <b>Número de jogos: </b>{{ equipa.Njogos }}
 </p>
 <p>
   <b>Número de jogos ganhos: </b>{{ equipa.NJogosGanhos }}
@@ -27,23 +27,23 @@
 </p>
 <p>
   <b>Região: </b>
-    <a href="/regioes/{{ regiao.sigla }}">{{ regiao.Nome }}</a>
+    <a href="/regioes/{{ regiao.sigla }}">{{ regiao.nome }}</a>
 </p>
 <p>
   <b>Jogadores: </b>
 <ul>
   {% for j in jogadores %}
   <li>
-    Nickname: <a href="/jogadores/{{ j.Nickname }}">{{ j.Nickname }}</a>
+    Nickname: <a href="/jogadores/{{ j.nickname }}">{{ j.nickname }}</a>
   </li>
   <li>
     KDA: {{ j.kda }}
   </li>
   <li>
-    Pentakills: {{ j.Pentakills }}
+    Pentakills: {{ j.pentakills }}
   </li>
   <li>
-    Solokills: {{ j.Solokills }}
+    Solokills: {{ j.solokills }}
   </li>
   {% endfor %}
 </ul>
@@ -54,7 +54,7 @@
 <ul>
   {% for p in parcerias %}
   <li>
-    <a href="/parcerias/{{ p.Nome }}">{{ p.Nome }}</a>
+    <a href="/parcerias/{{ p.nome }}">{{ p.nome }}</a>
   </li>
   {% endfor %}
 </ul>
