@@ -37,44 +37,45 @@ def list_equipas():
 
 @APP.route('/equipas/<expr>/')
 def get_equipa(expr):
-
-  #eu vi ate aqui
+  expressao = expr
+  expr = '%' + expr + '%'
   
-  movie = db.execute(
+  equipa = db.execute(
       '''
-      SELECT MovieId, Title, Year, Duration 
-      FROM MOVIE 
-      WHERE movieId = ?
-      ''', [id]).fetchone()
+      SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, assassinatosporjogo, mortesporjogo
+      FROM equipas 
+      WHERE sigla = ?
+      ''', [expr]).fetchone()
 
-  if movie is None:
-     abort(404, 'Movie id {} does not exist.'.format(id))
+  if equipa is None:
+     abort(404, 'Não existe equipa com sigla {}.'.format(expressao))
 
-  genres = db.execute(
+  regiao = db.execute(
       '''
-      SELECT GenreId, Label 
-      FROM MOVIE_GENRE NATURAL JOIN GENRE 
-      WHERE movieId = ? 
-      ORDER BY Label
-      ''', [id]).fetchall()
+      SELECT nome 
+      FROM regioes r JOIN equipas e on r.regiao=r.sigla
+      WHERE e.sigla = ? 
+      ''', [expr]).fetchone()
 
-  actors = db.execute(
+  jogadores = db.execute(
       '''
-      SELECT ActorId, Name
-      FROM MOVIE_ACTOR NATURAL JOIN ACTOR
-      WHERE MovieId = ?
-      ORDER BY Name
-      ''', [id]).fetchall()
+      SELECT nickname, kda, pentakills, solokills
+      FROM jogadores j join equipas e on j.equipa=e.sigla
+      WHERE e.sigla = ?
+      ORDER BY nickname Desc
+      ''', [expr]).fetchall()
 
-  streams = db.execute(
+  parcerias = db.execute(
       ''' 
-      SELECT StreamId, StreamDate
-      FROM STREAM
-      WHERE MovieId = ?
-      ORDER BY StreamDate Desc
-      ''', [id]).fetchall();
-  return render_template('movie.html', 
-           movie=movie, genres=genres, actors=actors, streams=streams)
+      SELECT Nome
+      FROM parcerias p join equipas e on e.sigla=p.sigla
+      WHERE p.sigla = ?
+      ORDER BY nome Desc
+      ''', [expr]).fetchall()
+  return render_template('equipa.html', 
+           equipa=equipa, regiao=regiao, jogadores=jogadores, parcerias=parcerias)
+
+#visto ate aqui
 
 @APP.route('/movies/search/<expr>/')
 def search_movie(expr):

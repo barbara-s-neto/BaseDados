@@ -4,8 +4,8 @@
 <p><b>Procurar por nome::</b>"{{ search.expr }}"</p>
 <p>
 <ul>
-  {% for m in movies %}
-  <li><a href="/equipas/{{ m.Nome }}">{{ m.Title }}</a></li>
+  {% for e in equipas %}
+  <li><a href="/equipas/{{ e.Nome }}">{{ e.Nome }}</a></li>
   {% endfor %}
 </ul>
 </p>

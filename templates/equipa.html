@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ equipa.Nome }}</h1>
+<p>
+  <b>Sigla da equipa: </b>{{ equipa.Sigla }}
+</p>
+<p>
+  <b>Nome: </b>{{ equipa.Nome }}
+</p>
+<p>
+  <b>Número de jogos: </b>{{ equipa.NJogos }}
+</p>
+<p>
+  <b>Número de jogos ganhos: </b>{{ equipa.NJogosGanhos }}
+</p>
+<p>
+  <b>Rácio de vitórias: </b>{{ equipa.RacioDeVitorias }}
+</p>
+<p>
+  <b>Assassinatos por mortes (K:D): </b>{{ equipa.KD }}
+</p>
+<p>
+  <b>Assassinatos por jogo: </b>{{ equipa.AssassinatosPorJogo}}
+</p>
+<p>
+  <b>Mortes por jogo: </b>{{ equipa.MortesPorJogo }}
+</p>
+<p>
+  <b>Região: </b>
+    <a href="/regioes/{{ regiao.sigla }}">{{ regiao.Nome }}</a>
+</p>
+<p>
+  <b>Jogadores: </b>
+<ul>
+  {% for j in jogadores %}
+  <li>
+    Nickname: <a href="/jogadores/{{ j.Nickname }}">{{ j.Nickname }}</a>
+  </li>
+  <li>
+    KDA: {{ j.kda }}
+  </li>
+  <li>
+    Pentakills: {{ j.Pentakills }}
+  </li>
+  <li>
+    Solokills: {{ j.Solokills }}
+  </li>
+  {% endfor %}
+</ul>
+</p>
+<!--{% if streams %}-->
+<p>
+  <b>Parcerias com patrocinadores: </b>
+<ul>
+  {% for p in parcerias %}
+  <li>
+    <a href="/parcerias/{{ p.Nome }}">{{ p.Nome }}</a>
+  </li>
+  {% endfor %}
+</ul>
+</p>
+<!--{% endif %}--> 
+{% endblock %}
