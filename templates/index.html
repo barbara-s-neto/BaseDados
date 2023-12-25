@@ -121,10 +121,16 @@ database. The application is built using
 <p>
   <a href="/parcerias">Ver todas</a>
 </p>
-<p>Pesquisar por sigla da equipa:
-  <form name="gid" action="javascript:window.open('/parcerias/'+document.forms['gid'].elements['id'].value,'_self')">
+<p>Pesquisar por sigla da equipa (em maiúsculas):
+  <form name="abc" action="javascript:window.open('/parcerias/byteam/'+document.forms['abc'].elements['id'].value,'_self')">
      Sigla da equipa(em maiúsculas):<input value="T1" name="id" type="text"/><input type="submit" value="get"/>
   </form>
   </p>
+  <p>Pesquisar por nome do patrocinador (sensível a maiúsculas e minúsculas):
+    <form name="abcd" action="javascript:window.open('/parcerias/bysponsor/'+document.forms['abcd'].elements['id'].value,'_self')">
+       Sigla da equipa(em maiúsculas):<input value="Twitch" name="id" type="text"/><input type="submit" value="get"/>
+    </form>
+    </p>
+
 
 {% endblock %}

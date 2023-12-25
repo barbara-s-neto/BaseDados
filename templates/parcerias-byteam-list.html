@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Parcerias</h1>
+<p><b>Equipa:</b><a href="/equipas/{{ search.expr }}">{{ search.expr }}</a></p>
+<table>
+  <tr>
+    <th>
+        <b>Patrocinador</b>
+    </th>
+  </tr>
+  {% for p in patrocinadores %}
+  <tr>
+    <td>
+      {{ p.nome }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

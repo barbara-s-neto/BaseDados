@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Patrocinadores</h1>
+<h1>Parcerias</h1>
 <table>
   <tr>
     <th>
-      <b>Nome</b>
+      <b>Equipa</b>
+    </th>
+    <th>
+        <b>Patrocinador</b>
     </th>
   </tr>
-  {% for p in patrocinadores %}
+  {% for p in parcerias %}
   <tr>
+    <td>
+      <a href="/equipas/{{ p.sigla }}">{{ p.sigla }}</a>
+    </td>
     <td>
       <a href="/patrocinadores/{{ p.nome }}">{{ p.nome }}</a>
     </td>
   </tr>
   {% endfor %}
 </table>
-<p><b>Nota:</b>Não alterámos todas as letras para minúscula pois as maiúsculas fazem parte do nome das empresas.</p>
 {% endblock %}

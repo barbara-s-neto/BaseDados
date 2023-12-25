@@ -221,6 +221,35 @@ def ver_patrocinador(expr):
   return render_template('patrocinador.html',  
            patrocinador=patrocinador)
 
+#Parcerias
+@APP.route('/parcerias/byteam/<expr>')
+def list_patrocinadoresbyteam(expr):
+    search = { 'expr': expr }
+    patrocinadores = db.execute(
+     ' SELECT nome'
+      ' FROM parcerias '
+      ' WHERE sigla = \'' + expr + '\''
+    ).fetchall()
+    return render_template('parcerias-byteam-list.html', patrocinadores=patrocinadores, search=search)
+
+@APP.route('/parcerias/bysponsor/<expr>')
+def list_patrocinadoresbysponsor(expr):
+    search = { 'expr': expr }
+    patrocinadores = db.execute(
+     ' SELECT sigla'
+      ' FROM parcerias '
+      ' WHERE nome = \'' + expr + '\''
+    ).fetchall()
+    return render_template('parcerias-bysponsor-list.html', patrocinadores=patrocinadores, search=search)
+
+@APP.route('/parcerias/')
+def list_parcerias():
+    parcerias = db.execute('''
+      SELECT sigla, nome
+      FROM parcerias
+      ORDER BY sigla
+    ''').fetchall()
+    return render_template('parcerias-list.html', parcerias=parcerias)
 #visto ate aqui
 
 # Streams
