@@ -37,8 +37,6 @@ def list_equipas():
 
 @APP.route('/equipas/<expr>/')
 def get_equipa(expr):
-  
-  
   equipa = db.execute(
       '''
       SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, AssassinatosPorJogo, MortesPorJogo
@@ -51,25 +49,25 @@ def get_equipa(expr):
 
   regiao = db.execute(
       '''
-      SELECT nome 
+      SELECT r.nome 
       FROM regioes r JOIN equipas e on e.regiao=r.sigla
-      WHERE e.sigla = ? 
+      WHERE e.sigla = ?
       ''', [expr]).fetchone()
 
   jogadores = db.execute(
       '''
-      SELECT nickname, kda, pentakills, solokills
+      SELECT j.nickname
       FROM jogadores j join equipas e on j.equipa=e.sigla
       WHERE e.sigla = ?
-      ORDER BY nickname Desc
+      ORDER BY j.nickname Desc
       ''', [expr]).fetchall()
 
   parcerias = db.execute(
       ''' 
-      SELECT nome
+      SELECT p.nome
       FROM parcerias p join equipas e on e.sigla=p.sigla
       WHERE p.sigla = ?
-      ORDER BY nome Desc
+      ORDER BY p.nome Desc
       ''', [expr]).fetchall()
   return render_template('equipa.html', 
            equipa=equipa, regiao=regiao, jogadores=jogadores, parcerias=parcerias)
