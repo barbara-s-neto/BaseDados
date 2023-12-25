@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Jogadores</h1>
+<table>
+  <tr>
+    <th>
+      <b>Nickname</b>
+    </th>
+    <th>
+      <b>Região</b>
+    </th>
+    <th>
+      <b>Equipa</b>
+    </th>
+  {% for j in jogadores %}
+  <tr>
+    <td>
+      <a href="/jogadores/{{ j.nickname }}">{{ j.nickname }}</a>
+    </td>
+    <td>
+      <a href="/regioes/{{ j.regiao }}">{{ j.regiao }}</a>
+    </td>
+    <td>
+      <a href="/equipas/{{ j.equipa }}">{{ j.equipa }}</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

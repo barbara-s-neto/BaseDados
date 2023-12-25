@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Região: {{ regiao.sigla }} </h1>
+<p>
+  <b>Sigla: </b>{{ regiao.sigla }}
+</p>
+<p>
+  <b>Constituintes desta região: </b>{{ regiao.nome }}
+</p>
+<p>
+  <b>Nota:</b>
+  Os constituintes de uma região podem ser países, partes de continetes, conjuntos de continentes com países
+  ou o conjunto dos países não incluídos em nenhuma outra região.
+</p>
+{% endblock %}

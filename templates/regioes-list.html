@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Genres</h1>
+<h1>Regiões</h1>
 <table>
   <tr>
     <th>
-      <b>Label</b>
+      <b>Sigla</b>
     </th>
   </tr>
-  {% for g in genres %}
+  {% for r in regioes %}
   <tr>
     <td>
-      <a href="/genres/{{ g.GenreId }}">{{ g.Label }}</a>
+      <a href="/regioes/{{ r.sigla }}">{{ r.sigla }}</a>
     </td>
   </tr>
   {% endfor %}

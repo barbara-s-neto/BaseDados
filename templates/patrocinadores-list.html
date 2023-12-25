@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Patrocinadores</h1>
+<table>
+  <tr>
+    <th>
+      <b>Nome</b>
+    </th>
+  </tr>
+  {% for p in patrocinadores %}
+  <tr>
+    <td>
+      <a href="/patrocinadores/{{ p.nome }}">{{ p.nome }}</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

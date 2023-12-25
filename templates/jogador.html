@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{jogador.Nickname}}</h1>
+<p>
+  <b>Nickname: </b>{{ jogador.Nickname }}
+</p>
+<p>
+  <b>Região: </b><a href="/regioes/{{ jogador.Regiao }}">{{ jogador.Regiao }}</a>
+</p>
+<p>
+  <b>Equipa durante o campeonato: </b><a href="/equipas/{{ jogador.Equipa }}">{{ jogador.Equipa }}</a>
+</p>
+<p>
+  <b>Número de jogos: </b>{{ jogador.NJogos }}
+</p>
+<p>
+  <b>Rácio de vitórias: </b>{{ jogador.RacioDeVitorias }}
+</p>
+<p>
+  <b>KDA: </b>{{ jogador.KDA }}
+</p>
+<p>
+  <b>Pentakills: </b>{{ jogador.Pentakills }} <br>
+  (Número de vezes que eliminou todos os jogadores da equipa oposta consecutivamente.)
+</p>
+<p>
+  <b>Solokills: </b>{{ jogador.NJogos }} <br>
+  (Número de assassinatos feitos sem assistência de um colega de equipa.)
+</p>
+
+<!-- <p>
+  <b>Movies: </b>
+<ul>
+  {% for m in movies %}
+  <li>
+    <a href="/movies/{{ m.MovieId }}">{{ m.Title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+</p>-->
+
+{% endblock %}

@@ -4,9 +4,9 @@
 <p><b>Search expression</b>: "{{ search.expr }}"</p>
 <p>
 <ul>
-  {% for a in actors %}
+  {% for p in patrocinadores %}
   <li>
-    <a href="/actors/{{ a.ActorId }}">{{ a.Name }}</a>
+    <a href="/patrocinadores/{{ p.nome }}">{{ p.nome }}</a>
   </li>
   {% endfor %}
 </ul>

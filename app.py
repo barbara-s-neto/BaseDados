@@ -85,88 +85,143 @@ def search_equipa(expr):
   return render_template('equipa-search.html',
            search=search,equipas=equipas)
 
+
+
+# Jogadores
+@APP.route('/jogadores/')
+def list_jogadores():
+    jogadores = db.execute('''
+      SELECT nickname, regiao, equipa
+      FROM jogadores
+      ORDER BY nickname
+    ''').fetchall()
+    return render_template('jogador-list.html', jogadores=jogadores)
+
 #visto ate aqui
 
+@APP.route('/jogadores/<expr>/')
+def ver_jogador(expr):
+  jogador = db.execute(
+    
+    'SELECT *'
+    'FROM jogadores'
+   ' WHERE nickname = \''+ expr + '\''
+    ).fetchone()
 
-# Actors
-@APP.route('/actors/')
-def list_actors():
-    actors = db.execute('''
-      SELECT ActorId, Name 
-      FROM Actor
-      ORDER BY Name
-    ''').fetchall()
-    return render_template('actor-list.html', actors=actors)
+  if jogador is None:
+     abort(404, 'O jogador {} não existe. Por favor tenha em atenção os caracteres maiúsculos e minúsculos'.format(expr))
 
+  #movies = db.execute(
+   # '''
+    #SELECT MovieId, Title
+    #FROM MOVIE NATURAL JOIN MOVIE_ACTOR
+   # WHERE ActorId = ?
+    #ORDER BY Title
+    #''', [id]).fetchall()
 
-@APP.route('/actors/<int:id>/')
-def view_movies_by_actor(id):
-  actor = db.execute(
-    '''
-    SELECT ActorId, Name
-    FROM ACTOR 
-    WHERE ActorId = ?
-    ''', [id]).fetchone()
-
-  if actor is None:
-     abort(404, 'Actor id {} does not exist.'.format(id))
-
-  movies = db.execute(
-    '''
-    SELECT MovieId, Title
-    FROM MOVIE NATURAL JOIN MOVIE_ACTOR
-    WHERE ActorId = ?
-    ORDER BY Title
-    ''', [id]).fetchall()
-
-  return render_template('actor.html', 
-           actor=actor, movies=movies)
+  return render_template('jogador.html', 
+           jogador=jogador)
  
-@APP.route('/actors/search/<expr>/')
-def search_actor(expr):
+@APP.route('/jogadores/search/<expr>/')
+def search_jogador(expr):
   search = { 'expr': expr }
   # SQL INJECTION POSSIBLE! - avoid this!
-  actors = db.execute(
-      ' SELECT ActorId, Name'
-      ' FROM ACTOR '
-      ' WHERE Name LIKE \'%' + expr + '%\''
+  jogadores = db.execute(
+      ' SELECT nickname'
+      ' FROM jogadores '
+      ' WHERE nickname LIKE \'%' + expr + '%\''
     ).fetchall()
 
-  return render_template('actor-search.html', 
-           search=search,actors=actors)
+  return render_template('jogador-search.html', 
+           search=search,jogadores=jogadores)
 
-# Genres
-@APP.route('/genres/')
-def list_genres():
-    genres = db.execute('''
-      SELECT GenreId, Label 
-      FROM GENRE
-      ORDER BY Label
+@APP.route('/jogadores/searchbyteam/<expr>/')
+def searchbyteam_jogador(expr):
+  search = { 'expr': expr }
+  # SQL INJECTION POSSIBLE! - avoid this!
+  jogadores = db.execute(
+      ' SELECT nickname'
+      ' FROM jogadores '
+      ' WHERE equipa = \'' + expr + '\''
+    ).fetchall()
+
+  return render_template('jogador-search.html', 
+           search=search,jogadores=jogadores)
+
+
+# Regiões
+@APP.route('/regioes/')
+def list_regioes():
+    regioes = db.execute('''
+      SELECT sigla
+      FROM regioes
+      ORDER BY nome
     ''').fetchall()
-    return render_template('genre-list.html', genres=genres)
+    return render_template('regioes-list.html', regioes=regioes)
 
-@APP.route('/genres/<int:id>/')
-def view_movies_by_genre(id):
-  genre = db.execute(
+@APP.route('/regioes/<expr>/')
+def ver_nome_regiao(expr):
+  regiao = db.execute(
     '''
-    SELECT GenreId, Label
-    FROM GENRE 
-    WHERE GenreId = ?
-    ''', [id]).fetchone()
+    SELECT sigla, nome
+    FROM regioes
+    WHERE sigla = ?
+    ''', [expr]).fetchone()
 
-  if genre is None:
-     abort(404, 'Genre id {} does not exist.'.format(id))
+  if regiao is None:
+     abort(404, 'Não existe região com sigla {}.'.format(expr))
 
-  movies = db.execute(
+  #movies = db.execute(
+   # '''
+    #SELECT MovieId, Title
+   # FROM MOVIE NATURAL JOIN MOVIE_GENRE
+   # WHERE GenreId = ?
+    #ORDER BY Title
+   # ''', [id]).fetchall()
+
+  return render_template('regioes.html', 
+           #genre=genre, 
+           regiao=regiao)
+
+#Patrocinadores
+@APP.route('/patrocinadores/')
+def list_patrocinadores():
+    patrocinadores = db.execute('''
+      SELECT nome
+      FROM patrocinadores
+      ORDER BY nome
+    ''').fetchall()
+    return render_template('patrocinadores-list.html', patrocinadores=patrocinadores)
+
+@APP.route('/patrocinadores/search/<expr>/')
+def search_patrocinador(expr):
+  search = { 'expr': expr }
+ 
+  patrocinadores = db.execute(
+      ' SELECT nome'
+      ' FROM patrocinadores'
+      ' WHERE nome LIKE \'%' + expr + '%\''
+    ).fetchall()
+
+  return render_template('patrocinadores-search.html', 
+           search=search,patrocinadores=patrocinadores)
+
+@APP.route('/patrocinadores/<expr>/')
+def ver_patrocinador(expr):
+  patrocinador = db.execute(
     '''
-    SELECT MovieId, Title
-    FROM MOVIE NATURAL JOIN MOVIE_GENRE
-    WHERE GenreId = ?
-    ORDER BY Title
-    ''', [id]).fetchall()
+    SELECT nome
+    FROM patrocinadores
+    WHERE nome = ?
+    ''', [expr]).fetchone()
 
-  return render_template('genre.html', 
-           genre=genre, movies=movies)
+  if patrocinador is None:
+     abort(404, '{} nao é um patrocinador.'.format(expr))
+
+  return render_template('patrocinador.html',  
+           patrocinador=patrocinador)
+
+#visto ate aqui
 
 # Streams
 @APP.route('/streams/<int:id>/')
