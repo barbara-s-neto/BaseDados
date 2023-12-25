@@ -74,7 +74,7 @@ def get_equipa(expr):
   return render_template('equipa.html', 
            equipa=equipa, regiao=regiao, jogadores=jogadores, parcerias=parcerias)
 
-@APP.route('/movies/search/<expr>/')
+@APP.route('/equipas/search/<expr>/')
 def search_equipa(expr):
   search = { 'expr': expr }
   expr = '%' + expr + '%'
@@ -82,7 +82,7 @@ def search_equipa(expr):
       ''' 
       SELECT sigla, nome
       FROM equipas
-      WHERE Title LIKE ?
+      WHERE nome LIKE ?
       ''', [expr]).fetchall()
   return render_template('equipa-search.html',
            search=search,equipas=equipas)
