@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>worlds2023 database</h1>
+<h1>worlds2023 database - Group 2</h1>
 
 <h2>About</h2>
 <p>This web application illustrates the use of the worlds2023
@@ -10,7 +10,7 @@ database. The application is built using
 <a href="https://jinja.palletsprojects.com">Jinja</a> provided by the professors.
 </p>
 
-<h2>Some database statistics</h2>
+<h2>Estatisticas sobre a base de dados</h2>
 <table>
 <tr>
   <th>Items</th>
@@ -39,11 +39,11 @@ database. The application is built using
 </table>
 
 
-<h2>Sample functionality</h2>
+<h2>Procure por mais informações</h2>
 
 <h3>Equipas</h3>
 <p>
-   <a href="/equipas">Ver todos</a>
+   <a href="/equipas">Ver todas</a>
 </p>
 <p>Informação sobre a equipa (propenso a <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>):
 <form name="mid" action="javascript:window.open('/equipas/'+document.forms['mid'].elements['id'].value,'_self')">
@@ -51,7 +51,7 @@ database. The application is built using
 </form>
 </p>
   
-<p>Pesquisa por nome (propenso a <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>):
+<p>Pesquisa por nome:
 <form name="msearch" action="javascript:window.open('/equipas/search/'+document.forms['msearch'].elements['expr'].value,'_self')">
   <input name="expr" id="expr" value="G2 Esports" required/>
   <input type="submit" value="search"/>
@@ -62,20 +62,21 @@ database. The application is built using
 <p>
    <a href="/jogadores">Ver todos</a>
 </p>
-<p>Informação sobre o jogador (propenso a <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>):
+<p><b>Informações sobre um jogador</b>:</p>
+
 <form name="aid" action="javascript:window.open('/jogadores/'+document.forms['aid'].elements['id'].value,'_self')">
    Nickname do jogador (sensível a maiúsculas):<input value="Caps" name="id" type="text"/><input type="submit" value="get"/>
 </form>
-</p>
+
   
-<p>Caso não saiba o nickname exato pesquise aqui (propenso a <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>):
+<p>Caso não saiba o nickname exato pesquise aqui:
   <form name="asearch" action="javascript:window.open('/jogadores/search/'+document.forms['asearch'].elements['expr'].value,'_self')">
     <input name="expr" id="expr" value="a" required/>
     <input type="submit" value="search"/>
   </form>
 </p>
 
-<p>Pesquise através da sigla da equipa(propenso a <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>):
+<p>Pesquise jogadores através da sigla da respectiva equipa:
   <form name="42search" action="javascript:window.open('/jogadores/searchbyteam/'+document.forms['42search'].elements['batata'].value,'_self')">
     <input name="batata" id="batata" value="T1" required/>
     <input type="submit" value="search"/>
@@ -106,29 +107,55 @@ database. The application is built using
 </form>
 </p>
 
-<h3>Patrocinadores</h3>
+  <h6>Junção</h6>
+  <p>Ver toda a informação disponível sobre uma equipa:
+    <form name="gud" action="javascript:window.open('/equipas/vertudo/'+document.forms['gud'].elements['id'].value,'_self')">
+       Sigla da região:
+        <select name="id" type="text">
+          <option>BDS</option>
+          <option>BLG</option>
+          <option>C9</option>
+          <option>DK</option>
+          <option>FNC</option>
+          <option>G2</option>
+          <option>GAM</option>
+          <option>GEN</option>
+          <option>JDG</option>
+          <option>KT</option>
+          <option>LNG</option>
+          <option>MAD</option>
+          <option>NRG</option>
+          <option>T1</option>
+          <option>TL</option>
+          <option>WBG</option>
+        </select>
+        <input type="submit" value="get"/>
+    </form>
+
+
+<h4>Patrocinadores</h4>
 <p>
    <a href="/patrocinadores">Ver todos</a>
 </p>
-<p>Procure um patrocinador(propenso a <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>):
+<p>Procure um patrocinador:
   <form name="44search" action="javascript:window.open('/patrocinadores/search/'+document.forms['44search'].elements['batata2'].value,'_self')">
     <input name="batata" id="batata2" value="Twitch" required/>
     <input type="submit" value="search"/>
   </form>
 </p>
 
-<h4>Parcerias</h4>
+<h5>Parcerias</h5>
 <p>
   <a href="/parcerias">Ver todas</a>
 </p>
 <p>Pesquisar por sigla da equipa (em maiúsculas):
   <form name="abc" action="javascript:window.open('/parcerias/byteam/'+document.forms['abc'].elements['id'].value,'_self')">
-     Sigla da equipa(em maiúsculas):<input value="T1" name="id" type="text"/><input type="submit" value="get"/>
+     <input value="T1" name="id" type="text"/><input type="submit" value="Search"/>
   </form>
   </p>
   <p>Pesquisar por nome do patrocinador (sensível a maiúsculas e minúsculas):
     <form name="abcd" action="javascript:window.open('/parcerias/bysponsor/'+document.forms['abcd'].elements['id'].value,'_self')">
-       Sigla da equipa(em maiúsculas):<input value="Twitch" name="id" type="text"/><input type="submit" value="get"/>
+       <input value="Twitch" name="id" type="text"/><input type="submit" value="Search"/>
     </form>
     </p>
 

@@ -12,24 +12,6 @@
     <th>
       <b>Nome</b>
     </th>
-    <th>
-      <b>NJogos</b>
-    </th>
-    <th>
-      <b>NJogosGanhos</b>
-    </th>
-    <th>
-      <b>RácioDeVitorias</b>
-    </th>
-    <th>
-      <b>KD</b>
-    </th>
-    <th>
-      <b>AssassinatosPorJogo</b>
-    </th>
-    <th>
-      <b>MortesPorJogo</b>
-    </th>
   </tr>
 
   {% for equipa in equipas %}
@@ -38,28 +20,10 @@
       <a href="/equipas/{{ equipa.Sigla }}">{{ equipa.Sigla }}</a>
     </td>
     <td>
-      {{ equipa.Regiao }}
+      <a href="/equipas/{{ equipa.Regiao }}">{{ equipa.Regiao }}</a>
     </td>
     <td>
       {{ equipa.Nome }}
-    </td>
-    <td>
-      {{ equipa.NJogos }}
-    </td>
-    <td>
-      {{ equipa.NJogosGanhos }}
-    </td>
-    <td>
-      {{ equipa.RacioDeVitorias }}
-    </td>
-    <td>
-      {{ equipa.KD }}
-    </td>
-    <td>
-      {{ equipa.AssassinatosPorJogo }}
-    </td>
-    <td>
-      {{ equipa.MortesPorJogo }}
     </td>
   </tr>
   {% endfor %}

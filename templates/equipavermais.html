@@ -27,12 +27,29 @@
 </p>
 <p>
   <b>Região: </b>
-    <a href="/regioes/{{ equipa.regiao }}">{{ equipa.regiao }}</a>
+  <br>
+  Sigla: <a href="/regioes/{{ regiao.sigla }}">{{ regiao.sigla }}</a>
+  <br>
+  Constituição: {{ regiao.nome }}
 </p>
-<br>
-<br>
 <p>
-     <a href="/equipas/vertudo/{{ equipa.sigla }}">Ver mais</a>
+  <b>Jogadores: </b>
+<ul>
+  {% for j in jogadores %}
+  <li>
+    Nickname: <a href="/jogadores/{{ j.nickname }}">{{ j.nickname }}</a>
+  </li>
+  {% endfor %}
+</ul>
 </p>
-
+<p>
+  <b>Parcerias com patrocinadores: </b>
+<ul>
+  {% for p in parcerias %}
+  <li>
+    <a href="/parcerias/{{ p.nome }}">{{ p.nome }}</a>
+  </li>
+  {% endfor %}
+</ul>
+</p>
 {% endblock %}

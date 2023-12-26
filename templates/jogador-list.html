@@ -7,10 +7,10 @@
       <b>Nickname</b>
     </th>
     <th>
-      <b>Região</b>
+      <b>Equipa</b>
     </th>
     <th>
-      <b>Equipa</b>
+      <b>Região</b>
     </th>
   {% for j in jogadores %}
   <tr>
@@ -18,10 +18,10 @@
       <a href="/jogadores/{{ j.nickname }}">{{ j.nickname }}</a>
     </td>
     <td>
-      <a href="/regioes/{{ j.regiao }}">{{ j.regiao }}</a>
+      <a href="/equipas/{{ j.equipa }}">{{ j.equipa }}</a>
     </td>
     <td>
-      <a href="/equipas/{{ j.equipa }}">{{ j.equipa }}</a>
+      <a href="/regioes/{{ j.regiao }}">{{ j.regiao }}</a>
     </td>
   </tr>
   {% endfor %}

@@ -38,18 +38,30 @@ def list_equipas():
 @APP.route('/equipas/<expr>/')
 def get_equipa(expr):
   equipa = db.execute(
-      '''
-      SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, AssassinatosPorJogo, MortesPorJogo
+      '''SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, AssassinatosPorJogo, MortesPorJogo, regiao
       FROM equipas 
-      WHERE sigla = ?
-      ''', [expr]).fetchone()
+      WHERE sigla = ?'''
+      ,[expr]).fetchone()
+
+  if equipa is None:
+     abort(404, 'Não existe equipa com sigla {}.'.format(expr))
+
+  return render_template('equipa.html', equipa=equipa)
+
+@APP.route('/equipas/vertudo/<expr>/')
+def get_equipacompleta(expr):
+  equipa = db.execute(
+      '''SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, AssassinatosPorJogo, MortesPorJogo, regiao
+      FROM equipas 
+      WHERE sigla = ?'''
+      ,[expr]).fetchone()
 
   if equipa is None:
      abort(404, 'Não existe equipa com sigla {}.'.format(expr))
 
   regiao = db.execute(
       '''
-      SELECT r.nome 
+      SELECT r.nome , r.sigla
       FROM regioes r JOIN equipas e on e.regiao=r.sigla
       WHERE e.sigla = ?
       ''', [expr]).fetchone()
@@ -69,7 +81,7 @@ def get_equipa(expr):
       WHERE p.sigla = ?
       ORDER BY p.nome Desc
       ''', [expr]).fetchall()
-  return render_template('equipa.html', 
+  return render_template('equipavermais.html', 
            equipa=equipa, regiao=regiao, jogadores=jogadores, parcerias=parcerias)
 
 @APP.route('/equipas/search/<expr>/')
@@ -77,11 +89,10 @@ def search_equipa(expr):
   search = { 'expr': expr }
   expr = '%' + expr + '%'
   equipas = db.execute(
-      ''' 
-      SELECT sigla, nome
-      FROM equipas
-      WHERE nome LIKE ?
-      ''', [expr]).fetchall()
+      'SELECT sigla, nome'
+      'FROM equipas'
+      'WHERE nome LIKE \'%' + expr + '%\''
+      ).fetchall()
   return render_template('equipa-search.html',
            search=search,equipas=equipas)
 
@@ -110,14 +121,6 @@ def ver_jogador(expr):
 
   if jogador is None:
      abort(404, 'O jogador {} não existe. Por favor tenha em atenção os caracteres maiúsculos e minúsculos'.format(expr))
-
-  #movies = db.execute(
-   # '''
-    #SELECT MovieId, Title
-    #FROM MOVIE NATURAL JOIN MOVIE_ACTOR
-   # WHERE ActorId = ?
-    #ORDER BY Title
-    #''', [id]).fetchall()
 
   return render_template('jogador.html', 
            jogador=jogador)
@@ -230,6 +233,10 @@ def list_patrocinadoresbyteam(expr):
       ' FROM parcerias '
       ' WHERE sigla = \'' + expr + '\''
     ).fetchall()
+
+    if patrocinadores is None:
+     abort(404, '{} nao é a sigla de nenhuma equipa.'.format(expr))
+
     return render_template('parcerias-byteam-list.html', patrocinadores=patrocinadores, search=search)
 
 @APP.route('/parcerias/bysponsor/<expr>')
@@ -240,6 +247,10 @@ def list_patrocinadoresbysponsor(expr):
       ' FROM parcerias '
       ' WHERE nome = \'' + expr + '\''
     ).fetchall()
+
+    if patrocinadores is None:
+     abort(404, '{} nao é um patrocinador.'.format(expr))
+
     return render_template('parcerias-bysponsor-list.html', patrocinadores=patrocinadores, search=search)
 
 @APP.route('/parcerias/')
@@ -251,64 +262,4 @@ def list_parcerias():
     ''').fetchall()
     return render_template('parcerias-list.html', parcerias=parcerias)
 #visto ate aqui
-
-# Streams
-@APP.route('/streams/<int:id>/')
-def get_stream(id):
-  stream = db.execute(
-      '''
-      SELECT StreamId, StreamDate, Charge, MovieId, Title, CustomerId, Name
-      FROM STREAM NATURAL JOIN MOVIE NATURAL JOIN CUSTOMER 
-      WHERE StreamId = ?
-      ''', [id]).fetchone()
-
-  if stream is None:
-     abort(404, 'Stream id {} does not exist.'.format(id))
-
-  return render_template('stream.html', stream=stream)
-
-
-# Staff
-@APP.route('/staff/')
-def list_staff():
-    staff = db.execute('''
-      SELECT S1.StaffId AS StaffId, 
-             S1.Name AS Name,
-             S1.Job AS Job, 
-             S1.Supervisor AS Supervisor,
-             S2.Name AS SupervisorName
-      FROM STAFF S1 LEFT JOIN STAFF S2 ON(S1.Supervisor = S2.StaffId)
-      ORDER BY S1.Name
-    ''').fetchall()
-    return render_template('staff-list.html', staff=staff)
-
-@APP.route('/staff/<int:id>/')
-def show_staff(id):
-  staff = db.execute(
-    '''
-    SELECT StaffId, Name, Supervisor, Job
-    FROM STAFF
-    WHERE staffId = ?
-    ''', [id]).fetchone()
-
-  if staff is None:
-     abort(404, 'Staff id {} does not exist.'.format(id))
-  superv={}
-  if not (staff['Supervisor'] is None):
-    superv = db.execute(
-      '''
-      SELECT Name
-      FROM staff
-      WHERE staffId = ?
-      ''', [staff['Supervisor']]).fetchone()
-  supervisees = []
-  supervisees = db.execute(
-    '''
-      SELECT StaffId, Name from staff
-      where Supervisor = ?
-      ORDER BY Name
-    ''',[id]).fetchall()
-
-  return render_template('staff.html', 
-           staff=staff, superv=superv, supervisees=supervisees)
 
