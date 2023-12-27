@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Jogadores</h1> que jogam numa região diferente daquela onde nasceram
+<h1>Jogadores que jogam numa região diferente daquela onde nasceram</h1>
 <table>
   <tr>
     <th>
-      <b>Equipa</b>
+      <b>Jogador</b>
     </th>
     <th>
-        <b>Patrocinador</b>
+      <b>Região do jogador</b>
+    </th>
+    <th>
+      <b>Região da equipa</b>
     </th>
   </tr>
   {% for j in jogadores %}
   <tr>
     <td>
-      <a href="/equipas/{{ p.sigla }}">{{ p.sigla }}</a>
+      <a href="/jogadores/{{ j.nickname }}">{{ j.nickname }}</a>
     </td>
     <td>
-      <a href="/patrocinadores/{{ p.nome }}">{{ p.nome }}</a>
+      <a href="/regioes/{{ j.regiao }}">{{ j.regiao }}</a>
+    </td>
+    <td>
+      <a href="/regioes/{{ j.reg }}">{{ j.reg }}</a>
     </td>
   </tr>
   {% endfor %}
