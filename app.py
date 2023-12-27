@@ -152,6 +152,18 @@ def searchbyteam_jogador(expr):
            search=search,jogadores=jogadores)
 
 
+@APP.route('/jogadores/naojogamemcasa')
+def jogador_foradecasa():
+
+  jogadores = db.execute(
+     'SELECT nickname'
+     'FROM jogadores'
+     'Where nickname not in (SELECT j.nickname FROM jogadores j natural join equipas e WHERE j.regiao=e.regiao)'
+    ).fetchall()
+
+  return render_template('jogadoresforadecasa.html', 
+           jogadores=jogadores)
+
 # Regiões
 @APP.route('/regioes/')
 def list_regioes():

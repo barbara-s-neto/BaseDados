@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Jogadores</h1> que jogam numa região diferente daquela onde nasceram
+<table>
+  <tr>
+    <th>
+      <b>Equipa</b>
+    </th>
+    <th>
+        <b>Patrocinador</b>
+    </th>
+  </tr>
+  {% for j in jogadores %}
+  <tr>
+    <td>
+      <a href="/equipas/{{ p.sigla }}">{{ p.sigla }}</a>
+    </td>
+    <td>
+      <a href="/patrocinadores/{{ p.nome }}">{{ p.nome }}</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
