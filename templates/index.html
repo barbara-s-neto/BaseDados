@@ -45,7 +45,7 @@ database. The application is built using
 <p>
    <a href="/equipas">Ver todas</a>
 </p>
-<p>Informação sobre a equipa (propenso a <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>):
+<p>Informação sobre a equipa:
 <form name="mid" action="javascript:window.open('/equipas/'+document.forms['mid'].elements['id'].value,'_self')">
    Sigla da equipa(em maiúsculas):<input value="G2" name="id" type="text"/><input type="submit" value="get"/>
 </form>
@@ -62,7 +62,7 @@ database. The application is built using
 <p>
    <a href="/jogadores">Ver todos</a>
 </p>
-<p><b>Informações sobre um jogador</b>:</p>
+<p>Informações sobre um jogador:</p>
 
 <form name="aid" action="javascript:window.open('/jogadores/'+document.forms['aid'].elements['id'].value,'_self')">
    Nickname do jogador (sensível a maiúsculas):<input value="Caps" name="id" type="text"/><input type="submit" value="get"/>
@@ -82,9 +82,8 @@ database. The application is built using
     <input type="submit" value="search"/>
   </form>
 </p>
-<br>
 
-<p style="font-size: 17px;">Clique <a href="/jogadores/naojogamemcasa/">aqui</a> para ver a lista de <b>jogadores que jogam para uma região diferente do que aquela onde eles nasceram.</b></p>
+<p style="font-size: 17px;">Clique <a href="/jogadores/naojogamemcasa/">aqui</a> para ver informação sobre <b>jogadores que não jogam em casa.</b></p>
 
 <h3>Regiões</h3>
 <p>
@@ -142,7 +141,7 @@ database. The application is built using
 <p>
    <a href="/patrocinadores">Ver todos</a>
 </p>
-<p>Procure um patrocinador:
+<p>Procure um patrocinador (sensível a maiúsculas e minúsculas):
   <form name="44search" action="javascript:window.open('/patrocinadores/search/'+document.forms['44search'].elements['batata2'].value,'_self')">
     <input name="batata" id="batata2" value="Twitch" required/>
     <input type="submit" value="search"/>
@@ -153,6 +152,9 @@ database. The application is built using
 <p>
   <a href="/parcerias">Ver todas</a>
 </p>
+
+<p style="font-size: 17px;" >Clique <a href="/parcerias/porequipa">aqui</a> para ver quantas parcerias tem cada equipa</p>
+
 <p>Pesquisar por sigla da equipa (em maiúsculas):
   <form name="abc" action="javascript:window.open('/parcerias/byteam/'+document.forms['abc'].elements['id'].value,'_self')">
      <input value="T1" name="id" type="text"/><input type="submit" value="Search"/>

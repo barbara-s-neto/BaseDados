@@ -31,17 +31,17 @@ def list_equipas():
       '''
       SELECT *
       FROM equipas
-      ORDER BY nome
+      ORDER BY nome 
       ''').fetchall()
     return render_template('equipas-list.html', equipas=equipas)
 
 @APP.route('/equipas/<expr>/')
-def get_equipa(expr):
+def apanhar_equipa(expr):
   equipa = db.execute(
-      '''SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, AssassinatosPorJogo, MortesPorJogo, regiao
-      FROM equipas 
-      WHERE sigla = ?'''
-      ,[expr]).fetchone()
+      'SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, AssassinatosPorJogo, MortesPorJogo, regiao '
+      'FROM equipas '
+      'WHERE sigla = \''+ expr + '\''
+      ).fetchone()
 
   if equipa is None:
      abort(404, 'Não existe equipa com sigla {}.'.format(expr))
@@ -52,7 +52,7 @@ def get_equipa(expr):
 def get_equipacompleta(expr):
   equipa = db.execute(
       '''SELECT sigla, nome, Njogos, NJogosGanhos, RacioDeVitorias, KD, AssassinatosPorJogo, MortesPorJogo, regiao
-      FROM equipas 
+      FROM equipas
       WHERE sigla = ?'''
       ,[expr]).fetchone()
 
@@ -89,9 +89,9 @@ def search_equipa(expr):
   search = { 'expr': expr }
   expr = '%' + expr + '%'
   equipas = db.execute(
-      'SELECT sigla, nome'
-      'FROM equipas'
-      'WHERE nome LIKE \'%' + expr + '%\''
+      'SELECT sigla, nome '
+      'FROM equipas '
+      'WHERE nome LIKE \'' + expr + '\''
       ).fetchall()
   return render_template('equipa-search.html',
            search=search,equipas=equipas)
@@ -114,9 +114,9 @@ def list_jogadores():
 def ver_jogador(expr):
   jogador = db.execute(
     
-    'SELECT *'
-    'FROM jogadores'
-   ' WHERE nickname = \''+ expr + '\''
+    'SELECT * '
+    'FROM jogadores '
+    'WHERE nickname = \''+ expr + '\''
     ).fetchone()
 
   if jogador is None:
@@ -160,9 +160,16 @@ def jogador_foradecasa():
      FROM jogadores j join equipas e on j.equipa=e.sigla
      Where j.regiao != e.regiao'''
     ).fetchall()
+  
+  equipas = db.execute(
+     '''SELECT e.sigla, count(DISTINCT j.regiao) as quantas_regioes
+FROM equipas e join jogadores j on j.equipa=e.sigla
+group by e.sigla'''
+    ).fetchall()
+    
 
   return render_template('jogadoresforadecasa.html', 
-           jogadores=jogadores)
+           jogadores=jogadores, equipas=equipas)
 
 # Regiões
 @APP.route('/regioes/')
@@ -186,16 +193,7 @@ def ver_nome_regiao(expr):
   if regiao is None:
      abort(404, 'Não existe região com sigla {}.'.format(expr))
 
-  #movies = db.execute(
-   # '''
-    #SELECT MovieId, Title
-   # FROM MOVIE NATURAL JOIN MOVIE_GENRE
-   # WHERE GenreId = ?
-    #ORDER BY Title
-   # ''', [id]).fetchall()
-
   return render_template('regioes.html', 
-           #genre=genre, 
            regiao=regiao)
 
 #Patrocinadores
@@ -273,5 +271,13 @@ def list_parcerias():
       ORDER BY sigla
     ''').fetchall()
     return render_template('parcerias-list.html', parcerias=parcerias)
-#visto ate aqui
+
+@APP.route('/parcerias/porequipa')
+def numero_parcerias():
+    parcerias = db.execute('''
+      SELECT sigla, COUNT(Nome) AS NPatrocinadores
+    FROM Parcerias
+    GROUP BY Sigla
+    ''').fetchall()
+    return render_template('parcerias-porequipa.html', parcerias=parcerias)
 

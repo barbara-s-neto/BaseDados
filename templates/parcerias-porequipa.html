@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Número de parcerias por equipa</h1>
+<table>
+  <tr>
+    <th>
+      <b>Equipa</b>
+    </th>
+    <th>
+        <b>Número de patrocinadores</b>
+    </th>
+  </tr>
+  {% for p in parcerias %}
+  <tr>
+    <td>
+      <a href="/equipas/{{ p.sigla }}">{{ p.sigla }}</a>
+    </td>
+    <td>
+      {{ p.NPatrocinadores }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,5 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
+<h1>Número de regiões de jogadores por equipa</h1>
+<p>Os jogadores podem fazer parte de equipas fora da região nasceram.
+  Portanto, existem equipas com jogadores de diferentes regiões e com região diferente da região da equipa.
+  Esta tabela mostra o número de regiões diferentes de jogadores por equipa. Pelas regras do campeonato
+é obrigatório cada equipa ter pelo menos um jogador da mesma região que a equipa.</p>
+  <p>Exemplo: 1 significa que todos os jogadores fazem parte da mesma região, a região da equipa.
+     2 significa que exitem jogadores de 2 regiões diferentes nessa equipa.</p>
+<table>
+  <tr>
+    <th>
+      <b>Sigla da equipa</b>
+    </th>
+    <th>
+      <b>Número de regiões diferentes dos jogadores</b>
+    </th>
+  </tr>
+  {% for e in equipas %}
+  <tr>
+    <td>
+      <a href="/equipas/{{ e.sigla }}">{{ e.sigla }}</a>
+    </td>
+    <td>
+      {{ e.quantas_regioes }}</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
 <h1>Jogadores que jogam numa região diferente daquela onde nasceram</h1>
 <table>
   <tr>
