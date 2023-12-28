@@ -244,8 +244,8 @@ def list_patrocinadoresbyteam(expr):
       ' WHERE sigla = \'' + expr + '\''
     ).fetchall()
 
-    if patrocinadores is None:
-     abort(404, '{} nao é a sigla de nenhuma equipa.'.format(expr))
+    if not patrocinadores:
+       abort(404, '{} não é a sigla de nenhuma equipa.'.format(expr))
 
     return render_template('parcerias-byteam-list.html', patrocinadores=patrocinadores, search=search)
 
@@ -258,8 +258,8 @@ def list_patrocinadoresbysponsor(expr):
       ' WHERE nome = \'' + expr + '\''
     ).fetchall()
 
-    if patrocinadores is None:
-     abort(404, '{} nao é um patrocinador.'.format(expr))
+    if not patrocinadores:
+       abort(404, '{} não é um patrocinador.'.format(expr))
 
     return render_template('parcerias-bysponsor-list.html', patrocinadores=patrocinadores, search=search)
 
